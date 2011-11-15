@@ -1,0 +1,10 @@
+Package: Pyramid
+Type: Package
+Title: a function for plotting population pyramids
+Version: 1.1
+Date: 2011-07-11
+Author: Tim Riffe
+Maintainer: Tim Riffe <tim.riffe@gmail.com>
+Description: Plots simple population pyramids, with many optional parameters. Also plots multistate populations.
+License: General Public
+LazyLoad: yes
