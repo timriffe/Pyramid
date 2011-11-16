@@ -1,0 +1,20 @@
+% 
+\documentclass[a4paper]{article}
+\usepackage[OT1]{fontenc}
+\usepackage{Sweave}
+\begin{document}
+
+\title{Making Population Pyramids in R}
+\author{Tim Riffe}
+
+\maketitle
+
+This is a short guide on making population pyramids in R. There are packages out there for this that make pyramid graphs easy to do (\texttt{pyramid}, or my own \texttt{Pyramid}), but perfectionists will always want to adjust every last detail. This guide will demonstrate briefly \texttt{Pyramid}, and also give some further bare-bones examples. 
+
+<<>>=
+# example in progress, tutorial still being written
+
+@
+
+
+\end{document}

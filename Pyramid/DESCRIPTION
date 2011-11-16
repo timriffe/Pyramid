@@ -6,5 +6,5 @@ Date: 2011-07-11
 Author: Tim Riffe
 Maintainer: Tim Riffe <tim.riffe@gmail.com>
 Description: Plots simple population pyramids, with many optional parameters. Also plots multistate populations.
-License: General Public
+License: GPL-2
 LazyLoad: yes
