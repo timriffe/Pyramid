@@ -55,7 +55,7 @@ logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for coh
 optional vector of cohort values at which to draw minor reference lines. Defaults to cohort years evenly divisible by 5.
 }
   \item{coh.lty.min, coh.col.min, coh.lwd.min}{
-graphical parameters for minor cohort reference lines. Defaults are \code{3}, \code{coh.col} and \code{coh.lwd * .8}, respectively.
+graphical parameters for minor cohort reference lines. Defaults are \code{3}, \code{coh.col} and $\code{coh.lwd * .8}$, respectively.
 }
   \item{age.lines}{
 logical. Defaults to \code{TRUE}. Should age reference lines be drawn across the plot? Defaults to the value of the age axis ticks and copies the graphical parameters from \code{grid.}.
@@ -82,7 +82,7 @@ optional graphical parameters to control the appearance of vertical grid referen
 logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for vertical grid direction as well? 
 }
   \item{v.at.min}{
-optional vector of x axis values at which to draw minor reference lines. Defaults to \code{pretty(xlim, n = 25, min.n = 16)}.
+optional vector of x axis values at which to draw minor reference lines. Defaults to $\code{pretty(xlim, n = 25, min.n = 16)}$.
 }
   \item{v.lty.min, v.col.min, v.lwd.min}{
 optional graphical parameters to control the appearance of minor vertical reference lines. Defaults come from \code{v.}
@@ -106,7 +106,7 @@ x axis label. Defaults to the most reasonable of \code{"percent"}, \code{"popula
 left (age) axis label. Defaults to \code{"Age"}
 }
   \item{ylab.right}{
-right (cohort) axis label. Defaults to \code{"Cohort"}. Only plots if you specify \code{coh.axis = TRUE}.
+right (cohort) axis label. Defaults to \code{"Cohort"}. Only plots if you specify $\code{coh.axis = TRUE}$.
 }
   \item{cex.lab}{
 character expansion of axis labels. Defaults to 1, normal \code{xlab} and \code{ylab} sizes. Applies to \code{xlab}, \code{ylab.right} and \code{ylab.left}.
@@ -136,7 +136,7 @@ character expansion of all tick labels (x, age, and cohort).
 logical. Defaults to \code{TRUE}. Draw box around plot area.
 }
   \item{verbose}{
-logical. Should informative but potentially annoying messages be returned when the function does something you might want to know about? Default = \code{TRUE}.
+logical. Should informative but potentially annoying messages be returned when the function does something you might want to know about? Defaults to \code{TRUE}.
 }
 }
 \details{
