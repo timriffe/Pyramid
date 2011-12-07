@@ -9,10 +9,11 @@
 
 \maketitle
 
-This is a short guide on making population pyramids in R. There are packages out there for this that make pyramid graphs easy to do (\texttt{pyramid}, or my own \texttt{Pyramid}), but perfectionists will always want to adjust every last detail. This guide will demonstrate briefly \texttt{Pyramid}, and also give some further bare-bones examples. 
+This is a short guide on making population pyramids using the \texttt{Pyramid} package in R. There are other packages out there for making population pyramids (\texttt{pyramid}, or the \texttt{plotrix} package), but I decided to try my hand at it, and add a few features to change things up a bit. This guide will demonstrate many of the optional arguments to \texttt{Pyramid()},
 
 <<>>=
-# example in progress, tutorial still being written
+library(Pyramid)
+
 
 @
 
