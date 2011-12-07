@@ -97,7 +97,7 @@ character expansion of plot title. Defaults to 1, normal plot title size.
 x and y limits for the plot. Remember that even though axis labels for males on the left side are strictly positive, it is plotted in negative coordinate space
 }
   \item{mar}{
-plot margins. Same as \code{par("mar"}}. Defaults to \code{c(5,5,5,5)}.
+plot margins. Same as \code{par("mar"}. Defaults to \code{c(5,5,5,5)}.
 }
   \item{xlab}{
 x axis label. Defaults to the most reasonable of \code{"percent"}, \code{"population (1000s)"} or \code{"population (millions)"}
@@ -149,7 +149,6 @@ Tim Riffe
 \note{
 suggestions welcome
 }
-
 
 \seealso{
 See also the \code{\link{pyramid}} package, which plots the age axis in the middle.
