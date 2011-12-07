@@ -1,263 +1,488 @@
 \name{Pyramid}
 \alias{Pyramid}
+
 \title{
 a function for plotting population pyramids
 }
 \description{
-Population pyramids can be plotted in R by using the base R graphics function \code{barplot()}. The Pyramid package provides a simple wrapper with several optional arguments with defaults to quickly plot a population pyramid, and with simple detection and plotting of multistate pyramids. The function also gives optional absolute or percent scales, with flexible age-group widths, and optional generation labels on the right axis. Two example datasets from the Human Mortality Database are given to demonstrate plotting with single-age versus grouped ages.
+The Pyramid package provides a simple wrapper to \code{barplot()} with several optional arguments and defaults to quickly plot a population pyramid, and with automatic detection and plotting of multistate pyramids. The function also gives optional absolute or percent scales, with flexible age-group widths, optional cohort labels on the right axis, and optional reference lines.
 }
 \usage{
-Pyramid(males, females, widths, prop = T, fill.males, fill.females, border.males = "transparent", border.females = "transparent", generations = T, year = 2000, gen.lty = 2, gen.col = "black", gen.lwd = 1, verbose = T, main, xlim, ylim, cex.main = 1, cex.lab = 1, mar, xlab, xaxat, xax.lab, yaxat, yax.lab)
+Pyramid(males, females, widths, prop = TRUE, fill.males, fill.females, border.males = "transparent", border.females = "transparent", grid = TRUE, grid.lty = 2, grid.col = "grey", grid.lwd = 1, grid.bg = "transparent", coh.axis = FALSE, coh.lines = FALSE, year = 2000, coh.lty, coh.col, coh.lwd, coh.lines.min = FALSE, coh.at.min, coh.lty.min, coh.col.min, coh.lwd.min, age.lines = TRUE, age.lty, age.col, age.lwd, age.lines.min = FALSE, age.at.min, age.lty.min, age.col.min, age.lwd.min, v.lines = TRUE, v.lty, v.col, v.lwd, v.lines.min = FALSE, v.at.min, v.lty.min, v.col.min, v.lwd.min, main, cex.main = 1, xlim, ylim, mar, xlab, ylab.left = "Age", ylab.right = "Cohort", cex.lab = 1, xax.at, xax.lab, age.at, age.lab, coh.at, coh.labs, cex.axis = 1, box = TRUE, verbose = TRUE)
 }
-
+%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{males}{
-either numeric vector of the age-specific male population or a matrix or data.frame of the male population, where each column is a state (e.g. employed, unemployed). Ages can be grouped in any way or single.
+either a numeric vector of male population counts by age or a matrix or data.frame of the male population, where each column is a state (e.g. employed, unemployed).
 }
   \item{females}{
-either numeric vector of the age-specific female population or a matrix or data.frame of the female population, where each column is a state (e.g. employed, unemployed). Ages can be grouped in any way or single.
+either a numeric vector of female population counts by age or a matrix or data.frame of the female population, where each column is a state (e.g. employed, unemployed).
 }
   \item{widths}{
-numeric vector of the age-interval widths; must be the same length as \code{males} and \code{females}. If missing, defaults to \code{rep(1,length(males)). Population counts are always divided by the interval widths for plotting. This makes bar magnitudes comparable between pyramids with different age intervals; bars are to be interpreted as single year ages, where all of the single ages within a 5-year class have the same value.}
+numeric vector of the age-interval widths; must be the same length as \code{males} and \code{females}. If missing, defaults to \code{rep(1,length(males))}. Population counts are always divided by the interval widths for plotting. This makes bar magnitudes comparable between pyramids with different age intervals; bars are to be interpreted as single year ages, where all of the single ages within a 5-year class have the same value. Ages for axes are computed from \code{widths}.
 }
   \item{prop}{
-logical. Should the x-axis be in percent or absolute value? Default = TRUE = percent axis. If absolute, the function tries to guess how many 0s to include, and indicates millions or thousands in the axis label.
+logical. Should the x-axis be in percent or absolute value? Defaults to \code{TRUE}(percent axis). If absolute, the function tries to guess how many 0s to include in tick labels, and indicates millions or thousands in the axis labels.
 }
-  \item{fill.males}{
-The fill color for the male bars (left side). Can be specified in any way that R accepts. Default = \code{"orange"} for simple pyramids, or \code{rainbow(k)} for multistate pyramids, where k is the number of states (columns in the input data).
+  \item{fill.males, fill.females}{
+The fill color for the male bars (left side) and female bars (right side). Can be specified in any way that R accepts. Defaults are \code{"orange"} and \code{"purple"}, respectively, for simple pyramids, or \code{rainbow(k)} for multistate pyramids, where k is the number of states (columns in the input data).
 }
-  \item{fill.females}{
-The fill color for the female bars (left side). Can be specified in any way that R accepts. Default = \code{"purple"} for simple pyramids, or \code{rainbow(k)} for multistate pyramids, where k is the number of states (columns in the input data).
+  \item{border.males, border.females}{
+border color for the male and female bars. Can be specified in any way that R accepts. Default = \code{"transparent"}.
 }
-  \item{border.males}{
-border color for the male bars. Can be specified in any way that R accepts. Default = \code{"transparent"}.
+  \item{grid}{
+logical. Defaults to \code{TRUE}. Should reference lines be drawn across the plot for age, cohort or x axis ticks? 
 }
-  \item{border.females}{
-border color for the female bars. Can be specified in any way that R accepts. Default = \code{"transparent"}.
+  \item{grid.lty, grid.col, grid.lwd, grid.bg}{
+graphical parameters for default reference lines. These get passed on to age, cohort and vertical reference lines unless specified specifically. \code{grid.lty} is analagous to \code{lty}, \code{grid.col} to \code{col} and so forth. Background color can be specified with \code{grid.bg}. Defaults are \code{2}, \code{"grey"}, \code{1} and \code{"transparent"}, respectively.
 }
-  \item{generations}{
-logical. Should generation labels be included in the right margin? Default = TRUE. In this case, you need to specify the data year. This is calculated using the \code{widths} and \code{year} information, so if one of these is in error, the generation labels will also be in error.
+
+  \item{coh.axis}{
+logical. Defaults to \code{FALSE}. Should a cohort axis be drawn on the right side? In this case, you must also specify \code{year} to correctly compute birth cohorts. Ticks will be placed automatically on years ending in 0.
+}
+  \item{coh.lines}{
+logical. Defaults to \code{FALSE}. Should cohort reference lines be drawn across the plot? If switched to \code{TRUE}, the lines will match tick mark locations (on 0s) and copy the graphical parameters from \code{grid.}.
 }
   \item{year}{
-data year. Only needs to be specified if generation labels are used. Also appears in the default plot title. Default = 2000.
+The data year. This is only necessary if you want a cohort axis. Default value is 2000, so be careful!
 }
-  \item{gen.lty}{
-line type for the generation lines (lines that trace in from the labels to point to the respective spot on the pyramid). If you don't want them plotted, then specify \code{gen.col} as \code{"transparent"}. These lines will only be plotted if \code{generations=TRUE}.
+  \item{coh.lty, coh.col, coh.lwd,}{
+graphical parameters for cohort reference lines. Defaults to the \code{grid.} values.
 }
-  \item{gen.col}{
-the line color for the generation lines. Default = \code{"black"}. To turn off generation lines, specify this as as \code{"transparent"}. These will only be plotted if \code{generations=TRUE}.
+  \item{coh.lines.min}{
+logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for cohorts as well? 
 }
-  \item{gen.lwd}{
-the line width for the generation lines. Default = 1.
+  \item{coh.at.min}{
+optional vector of cohort values at which to draw minor reference lines. Defaults to cohort years evenly divisible by 5.
+}
+  \item{coh.lty.min, coh.col.min, coh.lwd.min}{
+graphical parameters for minor cohort reference lines. Defaults are \code{3}, \code{coh.col} and \code{coh.lwd * .8}, respectively.
+}
+  \item{age.lines}{
+logical. Defaults to \code{TRUE}. Should age reference lines be drawn across the plot? Defaults to the value of the age axis ticks and copies the graphical parameters from \code{grid.}.
+}
+  \item{age.lty, age.col, age.lwd,}{
+optional graphical parameters to control the appearance of age grid reference lines. Defaults come from \code{grid.}
+}
+  \item{age.lines.min}{
+logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for ages as well? 
+}
+  \item{age.at.min}{
+optional vector of age values at which to draw minor reference lines. Defaults to ages evenly divisible by 5.
+}
+  \item{age.lty.min, age.col.min, age.lwd.min}{
+optional graphical parameters to control the appearance of minor age reference minor lines. Defaults come from \code{age.}
+}
+  \item{v.lines}{
+logical. Defaults to \code{TRUE}. Should vertical reference lines be drawn across the plot? Defaults to the value of the x axis ticks and copies the graphical parameters from \code{grid.}.
+}
+  \item{v.lty, v.col, v.lwd}{
+optional graphical parameters to control the appearance of vertical grid reference lines. Defaults come from \code{grid.}
+}
+  \item{v.lines.min}{
+logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for vertical grid direction as well? 
+}
+  \item{v.at.min}{
+optional vector of x axis values at which to draw minor reference lines. Defaults to \code{pretty(xlim, n = 25, min.n = 16)}.
+}
+  \item{v.lty.min, v.col.min, v.lwd.min}{
+optional graphical parameters to control the appearance of minor vertical reference lines. Defaults come from \code{v.}
+}
+  \item{main}{
+optional plot title, defaults to just telling you the total population. To not plot a title, simple specify \code{""}.
+}
+  \item{cex.main}{
+character expansion of plot title. Defaults to 1, normal plot title size.
+}
+  \item{xlim, ylim}{
+x and y limits for the plot. Remember that even though axis labels for males on the left side are strictly positive, it is plotted in negative coordinate space
+}
+  \item{mar}{
+plot margins. Same as \code{par("mar"}}. Defaults to \code{c(5,5,5,5)}.
+}
+  \item{xlab}{
+x axis label. Defaults to the most reasonable of \code{"percent"}, \code{"population (1000s)"} or \code{"population (millions)"}
+}
+  \item{ylab.left}{
+left (age) axis label. Defaults to \code{"Age"}
+}
+  \item{ylab.right}{
+right (cohort) axis label. Defaults to \code{"Cohort"}. Only plots if you specify \code{coh.axis = TRUE}.
+}
+  \item{cex.lab}{
+character expansion of axis labels. Defaults to 1, normal \code{xlab} and \code{ylab} sizes. Applies to \code{xlab}, \code{ylab.right} and \code{ylab.left}.
+}
+  \item{xax.at}{
+optional, values at which to draw x axis ticks. Default makes use of \code{pretty()}
+}
+  \item{xax.lab}{
+optional, labels to print on x axis ticks.
+}
+  \item{age.at}{
+optional, values at which to draw age (left) axis ticks. Defaults to multiples of 10.
+}
+  \item{age.lab}{
+optional, labels to print on age axis ticks.
+}
+  \item{coh.at}{
+optional, values at which to draw cohort (left) axis ticks. Defaults to multiples of 10
+}
+  \item{coh.labs}{
+optional, labels to print on cohort axis ticks.
+}
+  \item{cex.axis}{
+character expansion of all tick labels (x, age, and cohort).
+}
+  \item{box}{
+logical. Defaults to \code{TRUE}. Draw box around plot area.
 }
   \item{verbose}{
 logical. Should informative but potentially annoying messages be returned when the function does something you might want to know about? Default = \code{TRUE}.
 }
-  \item{main}{
-The plot title. The default is something like "2000, Total Population 5 million", where the year is taken from the \code{year} argument (mostly to remind users to change this to properly set the generations labels), and millions or thousands rounding happens within the function.
-}
-  \item{xlim}{
-optional specification of x-axis limits (useful for plotting several pyramids, either in an animated time series, or comparing populations). Otherwise these are done using \code{pretty}.
-}
-  \item{ylim}{
-optional specification of y-axis limits, potentially useful for looking only at a particular age-range, though this does not always come out pretty. Also, beware that if axes are in percent scale and the visible age-range is limited, the percent labels refer to the whole population and not only the visible part of the population. Better for viewing a particular age range would be to only specify counts from the desired age range, and to use the \code{widths}, \code{yaxat} and \code{yax.labs} arguments to adjust the labels.
-}
-  \item{cex.main}{
-Character expansion factor for the plot title. Default = 1.
-}
-  \item{cex.lab}{
-Character expansion factor for label font size. default = 1. This applies to left, lower and right axes.
-}
-  \item{mar}{
-plot margins. Default = \code{c(5,4,7,4) + 0.1}, which leaves space for a plot title and for generations labels.
-}
-  \item{xlab}{
-label for x axis, defaults to "percent", "population (1000s)" or "population (millions)", depending on \code{prop} and the counts themselves.
-}
-  \item{xaxat}{
-numeric vector. optional positioning of x axis labels. Remember that the left side of the pyramid is in negative space.
-}
-  \item{xax.lab}{
-numeric vector. optional x axis labels. Remember that while the left bars plot to the left because they're negative, the labels still need to be positive.
-}
-  \item{yaxat}{
-numeric vector. optional positioning of left y axis (Age) labels. Defaults to every 10 years of age.
-}
-  \item{yax.lab}{
-numeric vector. optional left y axis (Age) labels. Defaults to every 10 years of age.
-}
 }
 \details{
-In most cases, this function has all the options that you might need for a quick population pyramid. If you really want to have full control over the design, look at the function code below for ideas about the \code{barplot()} settings that are needed to get started. Even more flexibility could be gained by plotting manually (and possibly much more laboriously) via the \code{polygon()} function.
+In most cases, this function has all the options that you might need for a quick population pyramid, should allow for a wide variety of styles and be flexible to different age groupings. See examples below for a demonstration of features. If you really want to have full control over the design, look at the function code for ideas about the \code{barplot()} settings that are needed to get started. 
 }
+
 \author{
 Tim Riffe
 }
+\note{
+suggestions welcome
+}
+
+
 \seealso{
-There is a package posted on CRAN called "pyramid", with a different plotting strategy: see  \code{\link{pyramid}}
+See also the \code{\link{pyramid}} package, which plots the age axis in the middle.
 }
 \examples{
-library(Pyramid)
-# some single year data included:
-head(ESP2000)
-# default settings:
-Pyramid(ESP2000[,"males"],ESP2000[,"females"])
-# change bar borders
-Pyramid(ESP2000[,"males"],ESP2000[,"females"],border.males=1,border.females=1)
-# remove generations
-Pyramid(ESP2000[,"males"],ESP2000[,"females"],border.males=1,border.females=1,generations=F)
-#get rid of annoying console message (could also just specify widths
-Pyramid(ESP2000[,"males"],ESP2000[,"females"],border.males=1,border.females=1,generations=F,verbose=F)
-Pyramid(ESP2000[,"males"],ESP2000[,"females"],border.males=1,border.females=1,generations=F,widths=rep(1,111))
-# change title from default
-Pyramid(ESP2000[,"males"],ESP2000[,"females"],border.males=1,border.females=1,generations=F,verbose=F,main="Spain population structure, 2000")
-# a decent looking pyramid, there are other arguments
-Pyramid(ESP2000[,"males"],ESP2000[,"females"],border.males=1,border.females=1,generations=F,verbose=F,main="Spain population structure, 2000",prop=F,cex.lab=1.3,cex.main=1.5)
-legend("topright",fill=c("orange","purple"),legend=c("males","females"))
+data(PTpop)
+head(PTpop)
 
-# 5-year abridged age groups:
-head(ESP2000_5)
-# now we need to specify widths:
-(widths <- c(1,4,rep(5,(nrow(ESP2000_5)-2))))
-Pyramid(ESP2000_5[,"males"],ESP2000_5[,"females"],widths=widths,border.males=1,border.females=1,generations=F,main="Spain population structure, 2000",prop=F,cex.lab=1.3,cex.main=1.5)
-legend("topright",fill=c("orange","purple"),legend=c("males","females"))
+# default 
+Pyramid(males=PTpop[,1], females=PTpop[,2])
 
-# no title, different margins
-Pyramid(ESP2000_5[,"males"],ESP2000_5[,"females"],widths=widths,border.males=1,border.females=1,generations=F,main="",prop=F,cex.lab=1.3,cex.main=1.5,mar=c(5,5,2,2))
-legend("topright",fill=c("orange","purple"),legend=c("males","females"))
+# remove messages
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		verbose = FALSE)
 
-# bars are always to be interpreted as single years, making pyramids with different age intervals comparable:
-windows(height=7,width=12)
-par(mfrow=c(1,2))
-Pyramid(ESP2000[,"males"],ESP2000[,"females"],border.males=1,border.females=1,generations=F,main="",cex.lab=1.3,cex.main=1.5,mar=c(5,5,2,2))
-legend("topright",fill=c("orange","purple"),legend=c("males","females"))
-Pyramid(ESP2000_5[,"males"],ESP2000_5[,"females"],widths=widths,border.males=1,border.females=1,generations=F,main="",cex.lab=1.3,cex.main=1.5,mar=c(5,5,2,2))
-legend("topright",fill=c("orange","purple"),legend=c("males","females"))
-# in the case of the pyramid on the right, values have been divided by the respective interval widths.
-# this needs to be taken into account when judging both percents and absolute counts when ages are grouped.
+# add cohort axis on right:
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		verbose = FALSE,
+		coh.axis = TRUE)
+
+# but watch out! it needs to know the data year to get the cohorts right! (assumes year 2000)
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		verbose = FALSE,
+		coh.axis = TRUE,
+		year = 1950)
+
+# you can change gridline parameters using grid.lty, grid.col, grid.lwd, grid.bg
+# or you can turn them off using grid = FALSE
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		coh.axis=TRUE,
+		verbose = FALSE,
+		grid.lty=1,
+		grid.lwd=.5)
+
+# for instance, something close to the ggplot2 aesthetic
+# give bars a border using border.males and border.females
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		verbose = FALSE,
+		coh.axis=TRUE,
+		grid.lty=1,
+		grid.lwd=.5,
+		grid.bg = gray(.9),
+		grid.col = "white",
+		border.males="black",
+		border.females="black")
+
+# get axis labels, title using arguments main, xlab, ylab.left and ylab.right 
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		coh.axis=TRUE,
+		verbose = FALSE,
+		grid.lty=1,
+		grid.lwd=.5,
+		grid.bg = gray(.9),
+		grid.col = "white",
+		border.males="black",
+		border.females="black",
+		xlab = "Porcentage",
+		ylab.left = "Edad",
+		ylab.right = "Cohorte",
+		main = "Poblaci\'{o}n de Portugal, 1950")
+
+# change bar colors using fill.males and fill.females
+# change x axis from percentage to absolute
+# only vertical reference lines
+# notice that the right ylab only shows if the axis is drawn:
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		verbose = FALSE,
+		grid.lty=1,
+		age.lines = FALSE,
+		border.males="black",
+		border.females="black",
+		ylab.left = "Edad",
+		ylab.right = "Cohorte",
+		xlab = "poblaci\'{o}n (1000s)",
+		main = "Poblaci\'{o}n de Portugal, 1950",
+		fill.males = "orange",
+		fill.females = "yellow",
+		prop = FALSE)
+		
+# get age on both sides by tricking the function using
+# coh.at and coh.labs (coh.at wants cohort positions, coh.labs in ths case are age labels)
+# you can alter age, vertical and cohort lines independently, using
+# v.col, v.lty, v.lwd, etc, coh._, age._
+# here we explicitly leave the right axis label blank, otherwise 'cohort' will show up
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		verbose = FALSE,
+		grid.lty=1,
+		v.lty = 2,
+		coh.axis = TRUE,
+		border.males="black",
+		border.females="black",
+		xlab = "Poblaci\'{o}n (1000s)",
+		ylab.left = "Edad",
+		ylab.right = "",
+		main = "Poblaci\'{o}n de Portugal, 1950",
+		prop = FALSE,
+		fill.males = "orange",
+		fill.females = "yellow",
+		coh.at = 1950 - seq(0,100,by = 10),
+		coh.labs = seq(0,100, by = 10)
+)
+		
+# get vertical lines every .05, but only labeled every .2 (with prop = TRUE)
+
+# coh., v. and age. graphical parameters can also refer to minor lines using the .min suffix,
+# e.g. v.lty becomes v.lty.min
+# we can turn on automatic minor lines using 
+# v.lines.min = TRUE, age.lines.min = TRUE, coh.lines.min = TRUE
+
+# also, you can give explicit character string labels for the x axis 
+# (not for y axes, they must be numeric, sorry)- in this case some nice percents
+# good idea to give explicit locations using xax.at
+
+# made cex.axis smaller so labels would fit well
+xlabats <- seq(from = -1.2,to = 1.2, by = .2)
+xlabs <- c("1.2\%","1.0\%","0.8\%","0.6\%","0.4\%","0.2\%","0.0\%","0.2\%","0.4\%","0.6\%","0.8\%","1.0\%","1.2\%")
+
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		verbose = FALSE,
+		grid.lty=1,
+		v.lty = 2,
+		coh.axis = TRUE,
+		coh.lines = FALSE,
+		border.males="black",
+		border.females="black",
+		xlab = "Porcentage",
+		ylab.left = "Edad",
+		ylab.right = "",
+		main = "Poblaci\'{o}n de Portugal, 1950",
+		fill.males = "orange",
+		fill.females = "yellow",
+		coh.at = 1950 - seq(0,100,by = 10),
+		coh.labs = seq(0,100, by = 10),
+		xax.at = xlabats,
+		xax.lab = xlabs,
+		v.lines.min = TRUE,
+		cex.axis=.75
+)
 
 
-## The function is currently defined as
+# specify some custom minor tick marks for age
+# (change to taste!)
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		verbose = FALSE,
+		coh.lines = FALSE,
+		coh.axis = TRUE,
+		year = 1950,
+		border.males="black",
+		border.females="black",
+		xlab = "Porcentage",
+		ylab.left = "Edad",
+		ylab.right = "",
+		main = "Poblaci\'{o}n de Portugal, 1950",
+		fill.males = "orange",
+		fill.females = "yellow",
+		coh.at = 1950 - seq(0,100,by = 10),
+		coh.labs = seq(0,100, by = 10),
+		xax.at = xlabats,
+		xax.lab = c("1.2\%","1.0\%","0.8\%","0.6\%","0.4\%","0.2\%","0.0\%","0.2\%","0.4\%","0.6\%","0.8\%","1.0\%","1.2\%"),
+		cex.axis=.75,
+		age.lines.min = TRUE,
+		age.at.min = seq(0,100,by = 2),
+		age.col.min = gray(.7),
+		age.lty.min = 3,
+		age.lwd.min = .7
+)
 
-	function(males,females,widths,prop=T,
-		fill.males,fill.females,border.males="transparent",border.females="transparent",
-		generations=T,year=2000,gen.lty=2,gen.col="black",gen.lwd=1,
-		verbose=T,main,xlim,ylim,cex.main=1,cex.lab=1,mar,xlab,xaxat,xax.lab,yaxat,yax.lab){
-	
-	# short verbose code
-	Verb <- function(v,x){
-		if (v==TRUE) {
-			cat(paste(x,"\n",sep=""))
-		}
-	}
-	
-	# check that male and female data are of equal length 
-	if (length(males)!=length(females)) {stop("the vectors input for males and females are not of the same length\nthis function is too dumb to know what you want. sorry")}
-	
-	# for simple pyramids, k = 1; for multistate pyramids, we need a separate column for each of k states
-	if (is.null(dim(males))){
-		k <- 1
-	} else { k <- ncol(males) }
-	
-	# we just assume 1-year age groups unless widths are specified, the user ought to immediately notice if something is wrong here...
-	if (missing(widths)) {
-		widths <- rep(1,(length(males)/k))
-		Verb(verbose,"widths unspecified; assumed 1-year age intervals; this affects the pyramid dimensions and ages")
-	}
-	
-	# in either case, we deduce ages from the age interval widths.
-	ages <- cumsum(widths)-widths
-	
-	# total population 
-	tot <- sum(males)+sum(females) 
-	
-	# for figuring out axes
-	xmax1 <- if (is.null(dim(males))) {max(c(males,females)/widths)} else {max(c(rowSums(males),rowSums(females)/widths))}
-	
-	# should we round to 1000s or 1000000s for axis labels?
-	KorM <- 10^(3*floor(log10(xmax1)/3))
-	KorMTitle <- (10^(3*floor(log10(tot)/3)))
-	KorMlab <- if (KorMTitle==1000) "(1000s)" else "(millions)"
-	
-	# deciding proper x axes and labels in accordance with prop:
-	if (prop==TRUE){
-		males <- (males/tot * -100)/widths # percent males (so that they plot to the left)
-		females <- (females/tot * 100)/widths # percent females, plotting to the right
-		if (is.null(dim(males))) {
-			xmax <- max(c(-males,females))
-		} else {
-			xmax <- max(c(rowSums(-males),rowSums(females)))
-			males <- t(males)
-			females <- t(females)
-		}
-		if (missing(xlab)) {xlab <- "percent"}
-	}
-	if (prop==FALSE){
-		males <- (-males/KorM)/widths
-		females <- (females/KorM)/widths
-		xmax <- if (is.null(dim(males))) {max(c(-males,females))} else {max(c(rowSums(-males),rowSums(females)))}
-		if (missing(xlab)) {xlab <- paste("population"," (",KorM,"s)",sep="")}
-	}
-	
-	# scipen=6 makes sure the labels aren't in scientific notation
-	options(scipen=6)
-	# age labels, percent or count labels
-	if (missing(xaxat)) 		{xaxat 	<- pretty(c(-xmax,xmax),8)}
-	if (missing(xax.lab)) 		{xax.lab 	<- abs(xaxat)}
-	
-	# age labels
-	if (missing(yaxat)) 		{yaxat <- ages[ages\%\%10==0]}
-	if (missing(yax.lab)) 		{yax.lab <- yaxat}
-	
-	# plotting limits
-	if (missing(ylim)) 			{ylim <- range(ages)}
-	if (missing(xlim)) 			{xlim <- range(xaxat)}
-	
-	# some default colors
-	# k > 1 identifies multistate pyramids, for which colors go left to right along columns in the input data, in to out in the pyramid itself
-	if (k > 1){
-		if (missing(fill.males)) 		{fill.males <- rainbow(k)}
-		if (missing(fill.females)) 		{fill.females <- rainbow(k)}
-		if (missing(border.males)) 		{border.males <- "black"}
-		if (missing(border.females)) 	{border.females <- "black"}
-	}
-	if (k==1){
-		if (missing(fill.males)) 		{fill.males <- "orange"}
-		if (missing(fill.females)) 		{fill.females <- "purple"}
-		if (missing(border.males)) 		{border.males <- "transparent"}
-		if (missing(border.females)) 	{border.females <- "transparent"}
-	}
-	
-	# a default title, if year is not specified then 2000 is used, and the user ought to notice. This is so that
-	# the user doesn't accidentally allow the generations to be calculated using the year 2000.
-	if (missing(main)){ main <- paste(year,",Total Pop = ",round(tot/KorMTitle,digits=1),KorMlab)}
-	
-	# default margins
-	if (missing(mar)){ mar <- c(5,4,7,4) + 0.1}
-	
-	par(mar=mar)
-	# pyramid, left and right plotted separately
-	barplot(males,width=widths,horiz=T,space=0,xlim=xlim,ylim=ylim,ylab="Age",xlab=xlab,border=border.males,
-			main=main,axes=F,cex.main=cex.main,xpd=F,plt=c(1,1,1,1),col=fill.males,cex.lab=cex.lab,axisnames=F)
-	par(new=T)
-	barplot(females,width=widths,horiz=T,space=0,xlim=xlim,col=fill.females,ylim=ylim,axes=F,xlab="",
-			border=border.females,ylab="",xpd=F,plt=c(1,1,1,1),axisnames=F)
-	par(new=T)
-	# axes 
-	axis(2,at=yaxat,labels=yax.lab,las=1)
-	axis(1,at=xaxat,labels=xax.lab,las=1)
-	
-	# option generations on right axis
-	if (generations==T){
-		gen <- seq(from=year,to=year-ages[length(ages)])  # the generations- this is why you state the year
-		gen0 <- gen[gen\%\%10==0] # this is where the code figures out where the even numbered generations are (by 10)
-		genat <- seq(from=max(gen)-max(gen0),to=max(gen)-min(gen),by=10) # where to plot the generations to track (in case of iterative plotting)
-		axis(4,at=genat,labels=gen0,las=1)
-		abline(h=genat,lty=gen.lty,col=gen.col,lwd=gen.lwd)
-		mtext("generation",4,padj=4,cex=cex.lab)
-	}
-	}
 
+# plot a transparent pyramid on top of another pyramid:
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		verbose = FALSE,
+		grid.lty=1,
+		coh.lines = FALSE,
+		xlab = "Porcentage",
+		ylab.left = "Edad",
+		ylab.right = "",
+		main = "Poblaci\'{o}n de Portugal, 1950 & 2001",
+		fill.males = "orange",
+		fill.females = "yellow",
+		border.males="black",
+		border.females="black",
+		coh.axis = TRUE,
+		coh.at = 1950 - seq(0,100,by = 10),
+		coh.labs = seq(0,100, by = 10),
+		xax.at = xlabats,
+		xax.lab = c("1.2\%","1.0\%","0.8\%","0.6\%","0.4\%","0.2\%","0.0\%","0.2\%","0.4\%","0.6\%","0.8\%","1.0\%","1.2\%"),
+		cex.axis=.75
+)
+# use par(new=TRUE) to allow plotting on top
+# turn off several parameters, like grid, labels, make fill explicitly transparent (or NA)
+
+# be carefully to explicitly define xlim and ylim for both plots so they match dimensions perfectly
+par(new=TRUE)
+Pyramid(males = PTpop[,3], 
+		females = PTpop[,4],
+		verbose = FALSE,
+		grid=FALSE,
+		border.males="black",
+		border.females="black",
+		xlab = "",
+		ylab.left = "",
+		ylab.right = "",
+		main = "",
+		fill.males = NA,
+		fill.females = NA,
+		xlim=c(-1.2,1.2),
+		ylim=c(0,101),
+		xax.at = xlabats,
+		xax.lab = c("1.2\%","1.0\%","0.8\%","0.6\%","0.4\%","0.2\%","0.0\%","0.2\%","0.4\%","0.6\%","0.8\%","1.0\%","1.2\%"),
+		cex.axis=.75,
+		coh.axis = FALSE
+)
+
+## or a semi-transparent pyramid where you can see the grid lines behind it:
+
+# define transparency function for named colors:
+colalpha <- function(color,alpha){
+	colalphai <- function(color,alpha){
+		paste(rgb(t(col2rgb(color)/255)),alpha,sep="")
+	}
+	sapply(color,colalphai,alpha=alpha)
 }
 
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		verbose = FALSE,
+		grid.lty = 1,
+		grid.col = gray(.7),
+		coh.lines = FALSE,
+		xlab = "Porcentage",
+		ylab.left = "Edad",
+		ylab.right = "",
+		main = "Poblaci\'{o}n de Portugal, 1950",
+		fill.males = colalpha("orange",90),
+		fill.females = colalpha("yellow",90),
+		border.males="black",
+		border.females="black",
+		coh.axis = TRUE,
+		coh.at = 1950 - seq(0,100,by = 10),
+		coh.labs = seq(0,100, by = 10),
+		xax.at = xlabats,
+		xax.lab = c("1.2\%","1.0\%","0.8\%","0.6\%","0.4\%","0.2\%","0.0\%","0.2\%","0.4\%","0.6\%","0.8\%","1.0\%","1.2\%"),
+		cex.axis = .75,
+		# minor grid line arguments:
+		v.lines.min = TRUE,
+		v.lty.min = 1,
+		v.lwd.min = .7,
+		v.col = "black"
+)
+
+
+# another option would be to simply draw the reference lines on top of the pyramid:
+
+# specify grid = FALSE
+# then draw manually 
+Pyramid(males = PTpop[,1], 
+		females = PTpop[,2],
+		year = 1950,
+		verbose = FALSE,
+		grid = FALSE,
+		xlab = "Porcentage",
+		ylab.left = "Edad",
+		ylab.right = "",
+		main = "Poblaci\'{o}n de Portugal, 1950",
+		fill.males = "orange",
+		fill.females = "yellow",
+		coh.axis = TRUE,
+		coh.at = 1950 - seq(0,100,by = 10),
+		coh.labs = seq(0,100, by = 10),
+		xax.at = xlabats,
+		xax.lab = c("1.2\%","1.0\%","0.8\%","0.6\%","0.4\%","0.2\%","0.0\%","0.2\%","0.4\%","0.6\%","0.8\%","1.0\%","1.2\%"),
+		cex.axis=.75,
+)
+# plot minor reference lines
+segments(-1.2,seq(2,100,by=2),1.2,seq(2,100,by=2), col = colalpha(gray(.2),50), lwd = .8, lty = 3)
+segments(seq(-1.2,1.2,by=.1),0,seq(-1.2,1.2,by=.1), 101, col = colalpha(gray(.2),50), lwd = .8, lty = 3)
+# plot major reference lines
+segments(-1.2,0:10 * 10,1.2, 0:10 *10, col = colalpha(gray(.4),50),lwd=.8)
+segments(seq(-1.2,1.2,by=.2),0,seq(-1.2,1.2,by=.2), 101, col = colalpha(gray(.4),50),lwd=.8)
+
+# example of a multistate pyramid.
+data(ESextr)
+males <- matrix(as.numeric(ESextr[1:18,2:5]),ncol=4)
+females <- matrix(as.numeric(ESextr[19:36,2:5]),ncol=4)
+widths <- rep(5,nrow(ESextr/2))
+
+Pyramid(males,
+		females,
+		widths=widths,
+		main = "Foreign population in Spain  (registered) by continent of bith, 2010",
+		fill.males=gray(c(.8,.6,.4,.2)),
+		fill.females=gray(c(.8,.6,.4,.2))
+)
+rect(1,70,2,90,col="white",border="black")
+legend(1,90,legend=c("Europe","Africa","Americas","Asia"),fill=gray(c(.8,.6,.4,.2)),xpd=TRUE,bty="n")
+
+# goes well together with individual subgroup plots.
+# remember, specify equal x axes for all of them:
+# african males force us to bring the axes out to 3!
+countries <- c("Europe","Africa","Americas","Asia")
+dev.new(height=8,width=8)
+par(mfrow=c(2,2))
+for (i in 1:4){
+	Pyramid(males[,i],
+			females[,i],
+			widths=widths,
+			main = countries[i],
+			fill.males=gray(.4),
+			fill.females=gray(.6),
+			xlim=c(-3,3),
+			mar=c(2,2,2,2)
+	)
+}
+
+}
 \keyword{ hplot }
+
