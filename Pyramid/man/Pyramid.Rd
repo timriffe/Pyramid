@@ -36,7 +36,6 @@ logical. Defaults to \code{TRUE}. Should reference lines be drawn across the plo
   \item{grid.lty, grid.col, grid.lwd, grid.bg}{
 graphical parameters for default reference lines. These get passed on to age, cohort and vertical reference lines unless specified specifically. \code{grid.lty} is analagous to \code{lty}, \code{grid.col} to \code{col} and so forth. Background color can be specified with \code{grid.bg}. Defaults are \code{2}, \code{"grey"}, \code{1} and \code{"transparent"}, respectively.
 }
-
   \item{coh.axis}{
 logical. Defaults to \code{FALSE}. Should a cohort axis be drawn on the right side? In this case, you must also specify \code{year} to correctly compute birth cohorts. Ticks will be placed automatically on years ending in 0.
 }
