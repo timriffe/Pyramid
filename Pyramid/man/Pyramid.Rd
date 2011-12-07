@@ -24,16 +24,16 @@ numeric vector of the age-interval widths; must be the same length as \code{male
   \item{prop}{
 logical. Should the x-axis be in percent or absolute value? Defaults to \code{TRUE}(percent axis). If absolute, the function tries to guess how many 0s to include in tick labels, and indicates millions or thousands in the axis labels.
 }
-  \item{fill.males, fill.females}{
+  \item{fill.males fill.females}{
 The fill color for the male bars (left side) and female bars (right side). Can be specified in any way that R accepts. Defaults are \code{"orange"} and \code{"purple"}, respectively, for simple pyramids, or \code{rainbow(k)} for multistate pyramids, where k is the number of states (columns in the input data).
 }
-  \item{border.males, border.females}{
+  \item{border.males border.females}{
 border color for the male and female bars. Can be specified in any way that R accepts. Default = \code{"transparent"}.
 }
   \item{grid}{
 logical. Defaults to \code{TRUE}. Should reference lines be drawn across the plot for age, cohort or x axis ticks? 
 }
-  \item{grid.lty, grid.col, grid.lwd, grid.bg}{
+  \item{grid.lty grid.col grid.lwd grid.bg}{
 graphical parameters for default reference lines. These get passed on to age, cohort and vertical reference lines unless specified specifically. \code{grid.lty} is analagous to \code{lty}, \code{grid.col} to \code{col} and so forth. Background color can be specified with \code{grid.bg}. Defaults are \code{2}, \code{"grey"}, \code{1} and \code{"transparent"}, respectively.
 }
   \item{coh.axis}{
@@ -45,7 +45,7 @@ logical. Defaults to \code{FALSE}. Should cohort reference lines be drawn across
   \item{year}{
 The data year. This is only necessary if you want a cohort axis. Default value is 2000, so be careful!
 }
-  \item{coh.lty, coh.col, coh.lwd,}{
+  \item{coh.lty coh.col coh.lwd,}{
 graphical parameters for cohort reference lines. Defaults to the \code{grid.} values.
 }
   \item{coh.lines.min}{
@@ -54,13 +54,13 @@ logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for coh
   \item{coh.at.min}{
 optional vector of cohort values at which to draw minor reference lines. Defaults to cohort years evenly divisible by 5.
 }
-  \item{coh.lty.min, coh.col.min, coh.lwd.min}{
+  \item{coh.lty.min coh.col.min coh.lwd.min}{
 graphical parameters for minor cohort reference lines. Defaults are \code{3}, \code{coh.col} and $\code{coh.lwd * .8}$, respectively.
 }
   \item{age.lines}{
 logical. Defaults to \code{TRUE}. Should age reference lines be drawn across the plot? Defaults to the value of the age axis ticks and copies the graphical parameters from \code{grid.}.
 }
-  \item{age.lty, age.col, age.lwd,}{
+  \item{age.lty age.col age.lwd,}{
 optional graphical parameters to control the appearance of age grid reference lines. Defaults come from \code{grid.}
 }
   \item{age.lines.min}{
@@ -69,13 +69,13 @@ logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for age
   \item{age.at.min}{
 optional vector of age values at which to draw minor reference lines. Defaults to ages evenly divisible by 5.
 }
-  \item{age.lty.min, age.col.min, age.lwd.min}{
+  \item{age.lty.min age.col.min age.lwd.min}{
 optional graphical parameters to control the appearance of minor age reference minor lines. Defaults come from \code{age.}
 }
   \item{v.lines}{
 logical. Defaults to \code{TRUE}. Should vertical reference lines be drawn across the plot? Defaults to the value of the x axis ticks and copies the graphical parameters from \code{grid.}.
 }
-  \item{v.lty, v.col, v.lwd}{
+  \item{v.lty v.col v.lwd}{
 optional graphical parameters to control the appearance of vertical grid reference lines. Defaults come from \code{grid.}
 }
   \item{v.lines.min}{
@@ -84,7 +84,7 @@ logical. Defaults to \code{FALSE}. Should minor reference lines be drawn for ver
   \item{v.at.min}{
 optional vector of x axis values at which to draw minor reference lines. Defaults to $\code{pretty(xlim, n = 25, min.n = 16)}$.
 }
-  \item{v.lty.min, v.col.min, v.lwd.min}{
+  \item{v.lty.min v.col.min v.lwd.min}{
 optional graphical parameters to control the appearance of minor vertical reference lines. Defaults come from \code{v.}
 }
   \item{main}{
@@ -93,7 +93,7 @@ optional plot title, defaults to just telling you the total population. To not p
   \item{cex.main}{
 character expansion of plot title. Defaults to 1, normal plot title size.
 }
-  \item{xlim, ylim}{
+  \item{xlim ylim}{
 x and y limits for the plot. Remember that even though axis labels for males on the left side are strictly positive, it is plotted in negative coordinate space
 }
   \item{mar}{
