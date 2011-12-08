@@ -15,15 +15,19 @@ License: \tab GPL-2\cr
 
 }
 \author{
-Tim Riffe\\
+Tim Riffe\cr
 
 Maintainer: Tim Riffe <tim.riffe@gmail.com>
 }
 
 \references{
-Spanish Register data from:\\
-Instituto Nacional de Estadistica (INE). Cifras oficiales de población: Revisión del Padrón municipal. Población a 1 de enero de 2010 (23 diciembre 2010). Available at: www.ine.es\\
-Instituto Nacional de Estatística (INE). Data aggregated from Portuguese census microdata from: http://www.ine.pt. Available in: Dinâmicas Demográficas e Envelhecimento da População Portuguesa: Evolução e Perspectivas. Instituto do Envelhecimento, Universidade de Lisboa.
+Data from:\cr
+Instituto Nacional de Estadistica (INE). Cifras oficiales de poblaciÃ³n: RevisiÃ³n del PadrÃ³n municipal. PoblaciÃ³n a 1 de enero de 2010 (23 diciembre 2010). Available at: www.ine.es\cr
+Instituto Nacional de EstatÃ­stica (INE). Data aggregated from Portuguese census microdata from: http://www.ine.pt. \cr
+Available in: DinÃ¢micas DemogrÃ¡ficas e Envelhecimento da PopulaÃ§Ã£o Portuguesa: EvoluÃ§Ã£o e Perspectivas. Instituto do Envelhecimento, Universidade de Lisboa.\cr
+MyersI function based on:\cr
+Myers, R.J. (1940) Errors and bias in the reporting of ages in census data. Transactions of the Actuarial Society of America. vol 41 nr 2 pages 395--415\cr
+Shryock, H.S. and Siegel, J.S. and Larmon, E.A. (1980) The methods and materials of demography. US Dept. of Commerce, Bureau of the Census (pages 116-118)
 }
 
 \keyword{ package }
@@ -97,7 +101,7 @@ Pyramid(males = PTpop[,1],
 		xlab = "Porcentage",
 		ylab.left = "Edad",
 		ylab.right = "Cohorte",
-		main = "Poblaci\'{o}n de Portugal, 1950")
+		main = "Portugal Population Structure, 1950")
 
 # change bar colors using fill.males and fill.females
 # change x axis from percentage to absolute
@@ -113,7 +117,7 @@ Pyramid(males = PTpop[,1],
 		ylab.left = "Edad",
 		ylab.right = "Cohorte",
 		xlab = "poblaci\'{o}n (1000s)",
-		main = "Poblaci\'{o}n de Portugal, 1950",
+		main = "Portugal Population Structure, 1950",
 		fill.males = "orange",
 		fill.females = "yellow",
 		prop = FALSE)
@@ -135,7 +139,7 @@ Pyramid(males = PTpop[,1],
 		xlab = "Poblaci\'{o}n (1000s)",
 		ylab.left = "Edad",
 		ylab.right = "",
-		main = "Poblaci\'{o}n de Portugal, 1950",
+		main = "Portugal Population Structure, 1950",
 		prop = FALSE,
 		fill.males = "orange",
 		fill.females = "yellow",
@@ -171,7 +175,7 @@ Pyramid(males = PTpop[,1],
 		xlab = "Porcentage",
 		ylab.left = "Edad",
 		ylab.right = "",
-		main = "Poblaci\'{o}n de Portugal, 1950",
+		main = "Portugal Population Structure, 1950",
 		fill.males = "orange",
 		fill.females = "yellow",
 		coh.at = 1950 - seq(0,100,by = 10),
@@ -196,7 +200,7 @@ Pyramid(males = PTpop[,1],
 		xlab = "Porcentage",
 		ylab.left = "Edad",
 		ylab.right = "",
-		main = "Poblaci\'{o}n de Portugal, 1950",
+		main = "Portugal Population Structure, 1950",
 		fill.males = "orange",
 		fill.females = "yellow",
 		coh.at = 1950 - seq(0,100,by = 10),
@@ -222,7 +226,7 @@ Pyramid(males = PTpop[,1],
 		xlab = "Porcentage",
 		ylab.left = "Edad",
 		ylab.right = "",
-		main = "Poblaci\'{o}n de Portugal, 1950 & 2001",
+		main = "Portugal Population Structure, 1950 & 2001",
 		fill.males = "orange",
 		fill.females = "yellow",
 		border.males="black",
@@ -279,7 +283,7 @@ Pyramid(males = PTpop[,1],
 		xlab = "Porcentage",
 		ylab.left = "Edad",
 		ylab.right = "",
-		main = "Poblaci\'{o}n de Portugal, 1950",
+		main = "Portugal Population Structure, 1950",
 		fill.males = colalpha("orange",90),
 		fill.females = colalpha("yellow",90),
 		border.males="black",
@@ -310,7 +314,7 @@ Pyramid(males = PTpop[,1],
 		xlab = "Porcentage",
 		ylab.left = "Edad",
 		ylab.right = "",
-		main = "Poblaci\'{o}n de Portugal, 1950",
+		main = "Portugal Population Structure, 1950",
 		fill.males = "orange",
 		fill.females = "yellow",
 		coh.axis = TRUE,
@@ -331,7 +335,7 @@ segments(seq(-1.2,1.2,by=.2),0,seq(-1.2,1.2,by=.2), 101, col = colalpha(gray(.4)
 data(ESextr)
 males <- matrix(as.numeric(ESextr[1:18,2:5]),ncol=4)
 females <- matrix(as.numeric(ESextr[19:36,2:5]),ncol=4)
-widths <- rep(5,nrow(ESextr/2))
+widths <- rep(5,nrow(ESextr)/2)
 
 Pyramid(males,
 		females,

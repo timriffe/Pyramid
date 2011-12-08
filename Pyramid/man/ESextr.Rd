@@ -17,7 +17,7 @@ Four continents, 5-year age groups, males and females.
 }
 
 \source{
-www.ine.es
+Instituto Nacional de Estadistica (INE). Cifras oficiales de población: Revisión del Padrón municipal. Población a 1 de enero de 2010 (23 diciembre 2010). Available at: www.ine.es
 }
 
 \examples{

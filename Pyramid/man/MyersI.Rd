@@ -26,7 +26,7 @@ Large numbers mean more bias in digit preference. Numbers less than 1 can be dis
 the blended index value is returned. 
 }
 \references{
-Myers, R.J. (1940) Errors and bias in the reporting of ages in census data. Transactions of the Actuarial Society of America. vol 41 nr 2 pages 395--415\\
+Myers, R.J. (1940) Errors and bias in the reporting of ages in census data. Transactions of the Actuarial Society of America. vol 41 nr 2 pages 395--415\cr
 Shryock, H.S. and Siegel, J.S. and Larmon, E.A. (1980) The methods and materials of demography. US Dept. of Commerce, Bureau of the Census (pages 116-118)
 }
 \author{

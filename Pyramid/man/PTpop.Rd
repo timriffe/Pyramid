@@ -5,7 +5,7 @@
 Portugal population counts by age and sex, years 1950 and 2001.
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+Portugal population counts by age and sex, years 1950 and 2001. Single ages.
 }
 \usage{data(PTpop)}
 \format{
@@ -21,10 +21,10 @@ Portugal population counts by age and sex, years 1950 and 2001.
 ages 0 to 100.
 }
 \source{
-Din‚micas Demogr·ficas e Envelhecimento da PopulaÁ„o Portuguesa: EvoluÁ„o e Perspectivas. Instituto do Envelhecimento, Universidade de Lisboa. data aggregated from census microdata.
+Data aggregated from Portuguese census microdata from: Instituto Nacional de Estat√≠stica (INE). http://www.ine.pt.
 }
 \references{
-Instituto Nacional de EstatÌstica (INE): http://www.ine.pt.
+Available in: Din√¢micas Demogr√°ficas e Envelhecimento da Popula√ß√£o Portuguesa: Evolu√ß√£o e Perspectivas. Instituto do Envelhecimento, Universidade de Lisboa.
 }
 \examples{
 data(PTpop)
