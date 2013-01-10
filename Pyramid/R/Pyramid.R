@@ -14,7 +14,7 @@ Pyramid <-
 				box = TRUE, verbose = TRUE){
 	# short verbose code
 	Verb <- function(v, x){
-		if (v==TRUE) {
+		if (v) {
 			cat(paste(x, "\n", sep = ""))
 		}
 	}
@@ -48,7 +48,7 @@ Pyramid <-
 	KorMlab 						<- ifelse(KorMTitle == 1000, "(1000s)", "(millions)")
 	
 	# deciding proper x axes and labels in accordance with prop:
-	if (prop==TRUE){
+	if (prop){
 		males 						<- (males/tot * -100)/widths # -% males (so that they plot to the left)
 		females 					<- (females/tot * 100)/widths # % females, plotting to the right
 		if (k == 1) {
@@ -59,8 +59,7 @@ Pyramid <-
 			females 				<- t(females)
 		}
 		if (missing(xlab)) {xlab 	<- "percent"}
-	}
-	if (prop == FALSE){
+	} else{
 		males 						<- (-males/KorM)/widths
 		females 					<- (females/KorM)/widths
 		if (k == 1) {
@@ -135,18 +134,18 @@ Pyramid <-
 	
 	# -----------------------------------------------
 	# optional grid/ reference lines
-	if (grid==TRUE){
+	if (grid){
 		# note: an empty plot didn't work because the axes scaling is different..
 		barplot(0,0, horiz=TRUE, axes = FALSE, xlim = xlim, ylim = ylim, xlab = "", ylab = "", plt = c(1, 1, 1, 1))
 		rect(xlim[1], ylim[1], xlim[2], ylim[2], col = grid.bg, border = "transparent")
 		# vertical lines on ticks
-		if (v.lines == TRUE){
+		if (v.lines){
 			if (missing(v.col))			{v.col 				<- grid.col}
 			if (missing(v.lty))			{v.lty 				<- grid.lty}
 			if (missing(v.lwd))			{v.lwd 				<- grid.lwd}
 			segments(xax.at, ylim[1], xax.at, ylim[2], col = v.col, lty = v.lty, lwd = v.lwd)	
 			#optional minor vertical reference lines
-			if (v.lines.min == TRUE){
+			if (v.lines.min){
 				if (missing(v.at.min))	{v.at.min 			<- pretty(xlim, n = 25, min.n = 16)}
 				if (missing(v.col.min))	{v.col.min 			<- v.col}
 				if (missing(v.lty.min))	{v.lty.min 			<- 3}
@@ -155,13 +154,13 @@ Pyramid <-
 			}
 		}
 		# age lines
-		if (age.lines == TRUE){
+		if (age.lines){
 			if (missing(age.col))		{age.col 			<- grid.col}
 			if (missing(age.lty))		{age.lty 			<- grid.lty}
 			if (missing(age.lwd))		{age.lwd 			<- grid.lwd}
 			segments(xlim[1], age.at, xlim[2], age.at, lty = age.lty, col = age.col, lwd = age.lwd)
 			# optional minor reference lines for ages
-			if (age.lines.min == TRUE){
+			if (age.lines.min){
 				if (missing(age.at.min))	{age.at.min 			<- ages[ages %% 5 == 0]}
 				if (missing(age.col.min))	{age.col.min 			<- age.col}
 				if (missing(age.lty.min))	{age.lty.min 			<- 3}
@@ -170,13 +169,13 @@ Pyramid <-
 			}
 		}
 		# cohort lines
-		if (coh.lines == TRUE){
+		if (coh.lines){
 			if (missing(coh.col))		{coh.col 			<- grid.col}
 			if (missing(coh.lty))		{coh.lty 			<- grid.lty}
 			if (missing(coh.lwd))		{coh.lwd 			<- grid.lwd}
 			segments(xlim[1], coh.at, xlim[2], coh.at, lty = coh.lty, col = coh.col, lwd = coh.lwd)
 			# optional minor reference lines for cohorts
-			if (coh.lines.min == TRUE){
+			if (coh.lines.min){
 				if (missing(coh.at.min))	{coh.at.min 			<- seq(from = max(gen) - gen[gen %% 5 == 0], to = max(gen) - min(gen), by = 5)}
 				if (missing(coh.col.min))	{coh.col.min 			<- coh.col}
 				if (missing(coh.lty.min))	{coh.lty.min 			<- 3}
@@ -200,12 +199,12 @@ Pyramid <-
 	# x axis
 	axis(1, at = xax.at, labels = xax.lab, las = 1, cex.axis = cex.axis, pos = ylim[1])
 	# cohort axis (right side)
-	if (coh.axis == TRUE){
+	if (coh.axis){
 		axis(4, at = coh.at, labels = coh.labs, las = 1, cex.axis = cex.axis, pos = xlim[2])
 		mtext(side = 4, ylab.right, cex = cex.lab, line = 3)
 	}
 	# final bounding box
-	if (box == TRUE){
+	if (box){
 		rect(xlim[1], ylim[1], xlim[2], ylim[2], col = "transparent")
 	}
 }
