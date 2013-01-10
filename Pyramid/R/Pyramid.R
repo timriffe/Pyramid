@@ -116,13 +116,13 @@ Pyramid <-
 		if (missing(fill.males)) 		{fill.males 		<- rainbow(k)}
 		if (missing(fill.females)) 		{fill.females 		<- rainbow(k)}
 		if (missing(border.males)) 		{border.males 		<- "black"}
-		if (missing(border.females)) 	{border.females 	<- "black"}
+		if (missing(border.females)) 	        {border.females 	<- "black"}
 	}
 	if (k == 1){
 		if (missing(fill.males)) 		{fill.males 		<- "orange"}
 		if (missing(fill.females)) 		{fill.females 		<- "purple"}
 		if (missing(border.males)) 		{border.males 		<- "transparent"}
-		if (missing(border.females)) 	{border.females 	<- "transparent"}
+		if (missing(border.females)) 	        {border.females 	<- "transparent"}
 	}
 	
 	# a default title, if year is not specified then 2000 is used, and the user ought to notice. This is so that
@@ -130,7 +130,7 @@ Pyramid <-
 	if (missing(main)){ main <- paste("Total Pop = ",round(tot/KorMTitle,digits=1),KorMlab)}
 	
 	# default margins
-	if (missing(mar))					{mar 				<- c(5,5,5,5) + 0.1}
+	if (missing(mar))				{mar 			<- c(5,5,5,5) + 0.1}
 	par(mar = mar)
 	
 	# -----------------------------------------------
