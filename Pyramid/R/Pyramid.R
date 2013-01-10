@@ -12,6 +12,7 @@ Pyramid <-
 				xlab, ylab.left = "Age", ylab.right = "Cohort", 
 				xax.at, xax.lab, age.at, age.lab, coh.at, coh.labs, cex.axis = 1,
 				box = TRUE, verbose = TRUE){
+    # %TODO: add outline option, middle axis, confidence intervals?
 	# short verbose code
 	Verb <- function(v, x){
 		if (v) {
