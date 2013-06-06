@@ -13,7 +13,7 @@
 #parse_and_save("/home/triffe/git/Pyramid/Pyramid/man/Pyramid-package.Rd",
 #        file = "/home/triffe/git/Pyramid/Pyramid/old/Pyramid-package")
 # this script is for test package building a light testing
-
+5*65000
 devtools::build("/home/triffe/git/Pyramid/Pyramid","/home/triffe/git/Pyramid/Pyramid")
 
 BuildPackage <- function(RepoPath = "/home/triffe/git/Pyramid", PackageName = "Pyramid",
