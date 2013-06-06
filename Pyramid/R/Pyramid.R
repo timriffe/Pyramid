@@ -44,7 +44,6 @@
 #' @param cex.axis character expansion of all tick labels (x, age, and cohort).
 #' @param box logical. Defaults to \code{TRUE}. Draw box around plot area.
 #' @param verbose logical. Should informative but potentially annoying messages be returned when the function does something you might want to know about? Defaults to \code{TRUE}.
-
 #' @details In most cases, this function has all the options that you might need for a quick 
 #' population pyramid, should allow for a wide variety of styles and be flexible to different 
 #' age groupings. See examples below for a demonstration of features. If you really want to 
@@ -622,6 +621,7 @@ Pyramid <-
 #'población: Revisión del Padrón municipal. Población a 1 de enero de 2010 (23
 #'diciembre 2010). Available at: www.ine.es
 #'@keywords datasets
+#' @export
 #'@examples
 #'
 #'data(ESextr)
@@ -682,6 +682,7 @@ NULL
 #'@source Data aggregated from Portuguese census microdata from: Instituto
 #'Nacional de Estatística (INE). http://www.ine.pt.
 #'@keywords datasets
+#' @export
 #'@examples
 #'
 #'data(PTpop)
@@ -727,6 +728,7 @@ NULL
 #'methods and materials of demography. US Dept. of Commerce, Bureau of the
 #'Census (pages 116-118)
 #'@keywords package hplot
+#' @export
 #'@examples
 #'
 #'# same examples as given with Pyramid() plot function.

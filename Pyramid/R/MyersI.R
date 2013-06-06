@@ -20,6 +20,7 @@
 #'pages 395--415\cr Shryock, H.S. and Siegel, J.S. and Larmon, E.A. (1980) The
 #'methods and materials of demography. US Dept. of Commerce, Bureau of the
 #'Census (pages 116-118)
+#' @export
 #'@examples
 #'
 #'data(PTpop)
