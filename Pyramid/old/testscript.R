@@ -29,16 +29,19 @@ BuildPackage <- function(RepoPath = "/home/triffe/git/Pyramid", PackageName = "P
                             origin = ISOdatetime(1960,1,1,0,0,0),tz="PST")
     )
     
-    # determine new version number:
-    pkg.vs    <- paste0("Version: ",MajorInc, ".", as.character(round(increment / 365.25, digits = 4)))
-    
+    # determine new version number and date:
+    pkg.vs          <- paste0("Version: ",MajorInc, ".", as.character(round(increment / 365.25, digits = 4)))
+    pkg.dt          <- paste0("Date: ", Sys.Date())
     # update version in DESCRIPTION file:
-    DESC      <- readLines(file.path(RepoPath, PackageName,"DESCRIPTION"))
-    Version.i <- grep(DESC, pattern = "Version:")
+    DESC            <- readLines(file.path(RepoPath, PackageName,"DESCRIPTION"))
+    Version.i       <- grep(DESC, pattern = "Version:")
     DESC[Version.i] <- pkg.vs
+    Date.i          <- grep(DESC, pattern = "Date:")
+    DESC[Date.i]    <- pkg.dt
     writeLines(DESC, file.path(RepoPath, PackageName,"DESCRIPTION"))
 
     # build
     devtools::build(pkg = file.path(RepoPath, PackageName), path = RepoPath)
 }
 BuildPackage(RepoPath = "/home/triffe/git/Pyramid", PackageName = "Pyramid", MajorInc = 2)
+help("Pyramid",package="Pyramid")

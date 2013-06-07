@@ -2,7 +2,7 @@ Package: Pyramid
 Type: Package
 Title: a function for plotting population pyramids
 Version: 2.3.4315
-Date: 2011-12-07
+Date: 2013-06-07
 Author: Tim Riffe
 Maintainer: Tim Riffe <tim.riffe@gmail.com>
 Description: Plots simple population pyramids, with many optional parameters.
