@@ -2,8 +2,9 @@
 \alias{Pyramid}
 \title{a function for plotting population pyramids}
 \usage{
-  Pyramid(males, females, widths, prop = TRUE, fill.males,
-    fill.females, border.males = "transparent",
+  Pyramid(males, females, widths, prop = TRUE,
+    standardize = TRUE, fill.males, fill.females,
+    border.males = "transparent",
     border.females = "transparent", grid = TRUE,
     grid.lty = 2, grid.col = "grey", grid.lwd = 1,
     grid.bg = "transparent", coh.axis = FALSE,
@@ -47,6 +48,12 @@
   absolute, the function tries to guess how many 0s to
   include in tick labels, and indicates millions or
   thousands in the axis labels.}
+
+  \item{standardize}{logical. Default \code{TRUE}. Should
+  bar volumes be made comparable with single-age pyramids
+  (and hence with each other)? If \code{TRUE}, counts are
+  divided by widths. Otherwise, counts are taken
+  ``as-is''.}
 
   \item{fill.males}{(\code{fill.females}) The fill color
   for the male bars (left side) and female bars (right

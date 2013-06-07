@@ -6,6 +6,7 @@
 #' @param females either a numeric vector of female population counts by age or a matrix or data.frame  of the female population, where each column is a state (e.g. employed, unemployed).
 #' @param widths numeric vector of the age-interval widths; must be the same length as \code{males} and \code{females}. If missing, defaults to \code{rep(1,length(males))}. Population counts are always divided by the interval widths for plotting. This makes bar magnitudes comparable between pyramids with different age intervals; bars are to be interpreted as single year ages, where all of the single ages within a 5-year class have the same value. Ages for axes are computed from \code{widths}.
 #' @param prop logical. Should the x-axis be in percent or absolute value? Defaults to \code{TRUE}(percent axis). If absolute, the function tries to guess how many 0s to include in tick labels, and indicates  millions or thousands in the axis labels.
+#' @param standardize logical. Default \code{TRUE}. Should bar volumes be made comparable with single-age pyramids (and hence with each other)? If \code{TRUE}, counts are divided by widths. Otherwise, counts are taken ``as-is''.
 #' @param fill.males (\code{fill.females}) The fill color for the male bars (left side) and female bars (right side). Can be specified in any way that R accepts. Defaults are \code{"orange"} and \code{"purple"}, respectively, for simple pyramids, or \code{rainbow(k)} for multistate pyramids, where k is the number of states (columns in the input data).
 #' @param border.males (\code{border.females}) border color for the male and female bars. Can be specified in any way that R accepts. Default = \code{"transparent"}.   
 #' @param grid logical. Defaults to \code{TRUE}. Should reference lines be drawn across the plot for age, cohort or x axis ticks? 
@@ -393,7 +394,7 @@
 #' 
 
 Pyramid <-
-		function(males,	females, widths, prop = TRUE,
+		function(males,	females, widths, prop = TRUE, standardize = TRUE,
 				fill.males,	fill.females, border.males="transparent", border.females="transparent",
 				grid = TRUE, grid.lty = 2, grid.col = "grey",	grid.lwd = 1, grid.bg = "transparent",
 				coh.axis = FALSE, coh.lines = FALSE, year = 2000, coh.lty, coh.col, coh.lwd,
@@ -434,8 +435,18 @@ Pyramid <-
 	# total population 
 	tot <- sum(males) + sum(females) 
 	
+    # this toggles whether we standardize or not
+    if (standardize){
+        denom.widths <- widths
+    } else {
+        denom.widths <- 1
+    }
 	# for figuring out axes
-	xmax1 <- if (is.null(dim(males))) {max(c(males, females)/widths)} else {max(c(rowSums(males), rowSums(females)/widths))}
+	xmax1 <- if (is.null(dim(males))) {
+                max(c(males, females) / denom.widths)
+            } else {
+                max(c(rowSums(males), rowSums(females) / denom.widths))
+            }
 	
 	# should we round to 1000s or 1000000s for axis labels?
 	KorM 							<- 10 ^ (3 * floor(log10(xmax1)/3))
@@ -444,8 +455,8 @@ Pyramid <-
 	
 	# deciding proper x axes and labels in accordance with prop:
 	if (prop){
-		males 						<- (males/tot * -100)/widths # -% males (so that they plot to the left)
-		females 					<- (females/tot * 100)/widths # % females, plotting to the right
+		males 						<- (males / tot * -100) / denom.widths # -% males (so that they plot to the left)
+		females 					<- (females / tot * 100) / denom.widths # % females, plotting to the right
 		if (k == 1) {
 			xmax 					<- max(c(-males, females))
 		} else {
@@ -455,8 +466,8 @@ Pyramid <-
 		}
 		if (missing(xlab)) {xlab 	<- "percent"}
 	} else{
-		males 						<- (-males/KorM)/widths
-		females 					<- (females/KorM)/widths
+		males 						<- (-males / KorM) / denom.widths
+		females 					<- (females / KorM) / denom.widths
 		if (k == 1) {
 			xmax 					<- max(c(-males, females))
 		} else {
@@ -491,7 +502,7 @@ Pyramid <-
 	# where to plot the generations to track (in case of iterative plotting)
 	
 	# plotting limits
-	if (missing(ylim)) 					{ylim 				<- range(ages)+c(0,widths[length(widths)])}
+	if (missing(ylim)) 					{ylim 				<- range(ages) + c(0, widths[length(widths)])}
 	if (missing(xlim)) 					{xlim 				<- range(xax.at)}
 	
 	# if xlim given, but xax.at not given
@@ -516,7 +527,7 @@ Pyramid <-
 		if (missing(fill.males)) 		{fill.males 		<- "orange"}
 		if (missing(fill.females)) 		{fill.females 		<- "purple"}
 		if (missing(border.males)) 		{border.males 		<- "transparent"}
-		if (missing(border.females)) 	        {border.females 	<- "transparent"}
+		if (missing(border.females))    {border.females 	<- "transparent"}
 	}
 	
 	# a default title, if year is not specified then 2000 is used, and the user ought to notice. This is so that
