@@ -1,5 +1,2 @@
-export("Pyramid-package")
-export(ESextr)
 export(MyersI)
-export(PTpop)
 export(Pyramid)

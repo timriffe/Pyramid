@@ -632,7 +632,6 @@ Pyramid <-
 #'población: Revisión del Padrón municipal. Población a 1 de enero de 2010 (23
 #'diciembre 2010). Available at: www.ine.es
 #'@keywords datasets
-#' @export
 #'@examples
 #'
 #'data(ESextr)
@@ -693,7 +692,6 @@ NULL
 #'@source Data aggregated from Portuguese census microdata from: Instituto
 #'Nacional de Estatística (INE). http://www.ine.pt.
 #'@keywords datasets
-#' @export
 #'@examples
 #'
 #'data(PTpop)
@@ -739,7 +737,6 @@ NULL
 #'methods and materials of demography. US Dept. of Commerce, Bureau of the
 #'Census (pages 116-118)
 #'@keywords package hplot
-#' @export
 #'@examples
 #'
 #'# same examples as given with Pyramid() plot function.
