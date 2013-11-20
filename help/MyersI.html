@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Calculate Myers' blended index for age heaping based on digit...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for MyersI"><tr><td>MyersI</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Calculate Myers' blended index for age heaping based on digit preference.</h2>
+
+<h3>Description</h3>
+
+<p>Calculate Myers' blended index for age heaping based on
+digit preference. Implemented as described in Shyrock et.
+al. (1980).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  MyersI(x, ages)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>vector of age-specific population counts</p>
+</td></tr>
+<tr valign="top"><td><code>ages</code></td>
+<td>
+<p>vector of completed ages.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Large numbers mean more bias in digit preference. Numbers
+less than 1 can be disregarded. Interpret as percent of
+population that would need to be moved to a different age
+category for there to be no noticeable pattern of
+preference in age declaration.
+</p>
+
+
+<h3>Value</h3>
+
+<p>the blended index value is returned.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This implementation will only work for digits 0-9: not
+months, zodiacs or anything else that doesn't have a
+period of 10
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tim Riffe
+</p>
+
+
+<h3>References</h3>
+
+<p>Myers, R.J. (1940) Errors and bias in the reporting of
+ages in census data. Transactions of the Actuarial
+Society of America. vol 41 nr 2 pages 395&ndash;415<br>
+Shryock, H.S. and Siegel, J.S. and Larmon, E.A. (1980)
+The methods and materials of demography. US Dept. of
+Commerce, Bureau of the Census (pages 116-118)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(PTpop)
+
+# separately for males and females in both years
+apply(PTpop,2,MyersI)
+
+# males and females together, 1950
+MyersI(rowSums(PTpop[,1:2]))
+</pre>
+
+
+</body></html>

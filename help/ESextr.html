@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Spanish foreign population by continent of origin, 2010.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for ESextr"><tr><td>ESextr</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Spanish foreign population by continent of origin, 2010.</h2>
+
+<h3>Description</h3>
+
+<p>Four continents, 5-year age groups, males and females.
+</p>
+
+
+<h3>Format</h3>
+
+<p>The format is: chr [1:36, 1:5] &quot;males&quot; &quot;males&quot; &quot;males&quot; &quot;males&quot;
+&quot;males&quot; ...  - attr(*, &quot;dimnames&quot;)=List of 2 ..$ : chr [1:36] &quot;0-4&quot; &quot;5-9&quot;
+&quot;10-14&quot; &quot;15-19&quot; ...  ..$ : chr [1:5] &quot;&quot; &quot;PAISES.EUROPEOS&quot; &quot;PAISES.AFRICANOS&quot;
+&quot;PAISES.AMERICANOS&quot; ...</p>
+
+
+<h3>Source</h3>
+
+<p>Instituto Nacional de Estadistica (INE). Cifras oficiales
+de población: Revisión del Padrón municipal. Población a
+1 de enero de 2010 (23 diciembre 2010). Available at:
+www.ine.es
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(ESextr)
+
+head(ESextr)
+is.matrix(ESextr) # TRUE
+is.character(ESextr) # TRUE
+# sorry for the slop: need numeric data:
+males &lt;- matrix(as.numeric(ESextr[1:18,2:5]),ncol=4)
+females &lt;- matrix(as.numeric(ESextr[19:36,2:5]),ncol=4)
+
+widths &lt;- rep(5,nrow(ESextr/2))
+
+# composition of total registered foreign population by continent of origin:
+Pyramid(males,
+     females,
+     widths=widths,
+     main = "Foreign population in Spain  (registered) by continent of bith, 2010",
+     fill.males=gray(c(.8,.6,.4,.2)),
+     fill.females=gray(c(.8,.6,.4,.2))
+)
+rect(1,70,2,90,col="white",border="black")
+legend(1,90,legend=c("Europe","Africa","Americas","Asia"),fill=gray(c(.8,.6,.4,.2)),xpd=TRUE,bty="n")
+
+# or separately, easier comparison of structure by age and sex. Fix x limits!
+countries &lt;- c("Europe","Africa","Americas","Asia")
+dev.new(height=8,width=8)
+par(mfrow=c(2,2))
+for (i in 1:4){
+ Pyramid(males[,i],
+         females[,i],
+         widths=widths,
+         main = countries[i],
+         fill.males=gray(.4),
+         fill.females=gray(.6),
+         xlim=c(-3,3),
+         mar=c(2,2,2,2)
+ )
+}
+</pre>
+
+
+</body></html>
