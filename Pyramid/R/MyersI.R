@@ -9,7 +9,6 @@
 #'to a different age category for there to be no noticeable pattern of
 #'preference in age declaration.
 #'
-#' 
 #'@param x vector of age-specific population counts
 #'@param ages vector of completed ages.
 #'@return the blended index value is returned.

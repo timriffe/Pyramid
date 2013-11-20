@@ -1,8 +1,8 @@
 Package: Pyramid
 Type: Package
 Title: a function for plotting population pyramids
-Version: 2.3.4315
-Date: 2013-06-07
+Version: 2.5
+Date: 2013-11-19
 Author: Tim Riffe
 Maintainer: Tim Riffe <tim.riffe@gmail.com>
 Description: Plots simple population pyramids, with many optional parameters.
@@ -12,3 +12,4 @@ LazyLoad: yes
 Collate:
     'MyersI.R'
     'Pyramid.R'
+    'PyramidOutline.R'
