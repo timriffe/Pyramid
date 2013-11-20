@@ -1,3 +1,4 @@
 export(MyersI)
 export(Pyramid)
 export(PyramidOutline)
+export(aggN)
