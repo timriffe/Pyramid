@@ -1,7 +1,7 @@
 Pyramid
 =======
 
-draws populations pyramid, wrapper to barplot()
+```Pyramid()``` draws a population pyramid. Tons of optional arguments. Other related functions may be added. Soon to undergo overhaul.
 
 ### Installation
 To download and install the development version of Pyramid:
