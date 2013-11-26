@@ -32,7 +32,7 @@
   under the default settings. If you're looking at
   month-preference, or some other range where heaping is
   possible (e.g., Fire-Horse), then change the period
-  accordingly. One can toggle \codeP{standardize} to change
+  accordingly. One can toggle \code{standardize} to change
   the interpretation of the result. \code{standardize =
   FALSE} gives the interpretation as Myers meant it: what
   percentage would need to move to another digit in order
