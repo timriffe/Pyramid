@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Pyramid : draws populations pyramid, wrapper to barplot()" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Pyramid</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/timriffe/Pyramid">View on GitHub</a>
+
+          <h1 id="project_title">Pyramid</h1>
+          <h2 id="project_tagline">draws populations pyramid, wrapper to barplot()</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/timriffe/Pyramid/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/timriffe/Pyramid/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="pyramid" class="anchor" href="#pyramid"><span class="octicon octicon-link"></span></a>Pyramid</h1>
+
+<p><code>Pyramid()</code> draws a population pyramid. Tons of optional arguments. Other related functions may be added. Soon to undergo overhaul.</p>
+
+<p>Other supplementary plotting functions, or functions related to age structure are also included. For instance, <code>MyersI()</code>, measures the degree of apparent age-heaping in a population. <code>PyramidOutline()</code> adds the outline of a Pyramid to a plot (no center line), and <code>aggN()</code> aggregates a vector of single-age data to N-year age-groups.</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<p>To download and install the development version of Pyramid:</p>
+
+<p>Download the <a href="https://github.com/timriffe/Pyramid/master">zip ball</a> or
+<a href="https://github.com/timriffe/Pyramid/tarball/master">tar ball</a>, decompress and run <code>R CMD INSTALL</code> on it in the terminal command line, or use the <strong>devtools</strong> package to install the development version:</p>
+
+<div class="highlight highlight-r"><pre><span class="c"># install.packages("devtools")</span>
+<span class="c">library(devtools)</span>
+<span class="c">install_github("Pyramid","timriffe",subdir="Pyramid")</span>
+</pre></div>
+
+<p><strong>Note</strong>: Windows users need <a href="http://www.murdoch-sutherland.com/Rtools/">Rtools</a> and <a href="http://CRAN.R-project.org/package=devtools">devtools</a> to install this way.</p>
+
+<p><strong>Note</strong>: Mac users might be required to install the appropriate version <a href="https://developer.apple.com/xcode/">XTools</a> from the <a href="https://developer.apple.com/">Apple Developer site</a> in order to install the development version.  You may need to <a href="https://developer.apple.com/programs/register/">register as an Apple developer</a>.  An older version of XTools may also be required.</p>
+
+<h1>
+<a name="help" class="anchor" href="#help"><span class="octicon octicon-link"></span></a>Help</h1>
+
+<p>All functions are documented in the standard way, which means that once you load the package using <code>library(Pyramid)</code> you can just type for example <code>?Pyramid</code> to see the help file. html help files are available on this site under <a href="http://timriffe.github.io/Pyramid/help">help</a> </p>
+
+<h1>
+<a name="to-report-a-bug" class="anchor" href="#to-report-a-bug"><span class="octicon octicon-link"></span></a>To report a bug</h1>
+
+<p>Just go to the <a href="https://github.com/timriffe/Pyramid">main repository page</a> and click on the <code>Issues</code> 
+button on the right side. That's a convenient way to track bugs. Otherwise, just email the maintainer. Feature requests can also be made to the maintainer. Motivated individuals are also free to offer assistance by collaborating via the <code>git</code> version control system and github.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Pyramid maintained by <a href="https://github.com/timriffe">timriffe</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
