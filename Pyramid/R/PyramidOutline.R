@@ -24,8 +24,8 @@ PyramidOutline <- function(males, females,
     age     <- c(0,cumsum(widths)[-N])
     u.age   <- age[N] + widths[N]
     
-    males   <- scale * males / Total
-    females <- scale * females / Total
+    males   <- scale * (males / Total)
+    females <- scale * (females / Total)
     
     xout <- c(0, rep(females, each = 2) + 0,0, rev(c(-0, rep(-abs(males), each = 2) - 0, -0))) + x
     yout <- c(rep(c(age, u.age), each = 2), rev(c(rep(c(age, u.age), each = 2)))) + y
