@@ -394,7 +394,7 @@
 #' 
 
 Pyramid <-
-		function(males,	females, widths, prop = TRUE, standardize = TRUE,
+		function(males,	females, widths = NULL, prop = TRUE, standardize = TRUE,
 				fill.males,	fill.females, border.males="transparent", border.females="transparent",
 				grid = TRUE, grid.lty = 2, grid.col = "grey",	grid.lwd = 1, grid.bg = "transparent",
 				coh.axis = FALSE, coh.lines = FALSE, year = 2000, coh.lty, coh.col, coh.lwd,
@@ -403,12 +403,11 @@ Pyramid <-
 				age.lines.min = FALSE, age.at.min, age.lty.min, age.col.min, age.lwd.min,
 				v.lines = TRUE, v.lty, v.col, v.lwd, 
 				v.lines.min = FALSE, v.at.min, v.lty.min, v.col.min, v.lwd.min,
-				main, xlim, ylim, cex.main = 1, cex.lab = 1, mar,
+				main = "", xlim, ylim, cex.main = 1, cex.lab = 1, mar,
 				xlab, ylab.left = "Age", ylab.right = "Cohort", 
 				xax.at, xax.lab, age.at, age.lab, coh.at, coh.labs, cex.axis = 1,
 				box = TRUE, verbose = TRUE){
-    # %TODO: add outline option, middle axis, confidence intervals?
-	# short verbose code
+  	# short verbose code
 	Verb <- function(v, x){
 		if (v) {
 			cat(paste(x, "\n", sep = ""))
@@ -416,7 +415,7 @@ Pyramid <-
 	}
 	
 	# check that male and female data are of equal length 
-	if (length(males) != length(females)) {stop("the vectors input for males and females are not of the same length\nthis function is too dumb to know what you want. sorry")}
+    stopifnot(length(males) == length(females))
 	
 	# for simple pyramids, k = 1; for multistate pyramids, we need a separate column for each of k states
 	if (is.null(dim(males))){
@@ -424,7 +423,7 @@ Pyramid <-
 	} else { k <- ncol(males) }
 	
 	# we just assume 1-year age groups unless widths are specified, the user ought to immediately notice if something is wrong here...
-	if (missing(widths)) {
+	if (is.null(widths)) {
 		widths <- rep(1, (length(males)/k))
 		Verb(verbose, "widths unspecified; assumed 1-year age intervals; this affects the pyramid dimensions and ages")
 	}
@@ -442,12 +441,12 @@ Pyramid <-
         denom.widths <- 1
     }
 	# for figuring out axes
-	xmax1 <- if (is.null(dim(males))) {
-                max(c(males, females) / denom.widths)
-            } else {
-                max(c(rowSums(males), rowSums(females) / denom.widths))
-            }
-	
+    if (k == 1) {
+        xmax1 <- max(c(males, females) / denom.widths)
+    } else {
+        xmax1 <- max(c(rowSums(males), rowSums(females) / denom.widths))
+    }
+    
 	# should we round to 1000s or 1000000s for axis labels?
 	KorM 							<- 10 ^ (3 * floor(log10(xmax1)/3))
 	KorMTitle 						<- (10 ^ (3 * floor(log10(tot)/3)))
@@ -464,8 +463,10 @@ Pyramid <-
 			males 					<- t(males)
 			females 				<- t(females)
 		}
-		if (missing(xlab)) {xlab 	<- "percent"}
-	} else{
+		if (missing(xlab)) {
+            xlab 	<- "percent"
+        }
+	} else {
 		males 						<- (-males / KorM) / denom.widths
 		females 					<- (females / KorM) / denom.widths
 		if (k == 1) {
@@ -475,7 +476,9 @@ Pyramid <-
 			males 					<- t(males)
 			females 				<- t(females)
 		}
-		if (missing(xlab)) {xlab 	<- paste("population"," (", KorM, "s)",sep="")}
+		if (missing(xlab)) {
+            xlab 	<- paste0("population"," (", KorM, "s)")
+        }
 	}
 	
 	# scipen=6 makes sure the labels aren't in scientific notation
@@ -493,7 +496,9 @@ Pyramid <-
 	# if coh.at is specified but not coh.labs, we take coh.labs from coh.at, then shift coh.at to age scale
 	
 	if (!missing(coh.at))	{
-		if (missing(coh.labs)) 			{coh.labs 			<- coh.at}
+		if (missing(coh.labs)) 			{
+            coh.labs 			<- coh.at
+        }
 		coh.at				<- ages[gen %in% coh.at]
 	}
 	# default plot cohorts evenly divisible by 10
@@ -529,10 +534,6 @@ Pyramid <-
 		if (missing(border.males)) 		{border.males 		<- "transparent"}
 		if (missing(border.females))    {border.females 	<- "transparent"}
 	}
-	
-	# a default title, if year is not specified then 2000 is used, and the user ought to notice. This is so that
-	# the user doesn't accidentally allow the generations to be calculated using the year 2000.
-	if (missing(main)){ main <- paste("Total Pop = ",round(tot/KorMTitle,digits=1),KorMlab)}
 	
 	# default margins
 	if (missing(mar))				{mar 			<- c(5,5,5,5) + 0.1}
