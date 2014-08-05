@@ -1,7 +1,7 @@
 Pyramid
 =======
 
-```Pyramid()``` draws a population pyramid. Tons of optional arguments. Other related functions may be added. Soon to undergo overhaul. [Here](http://timriffe.github.io/Pyramid/}'s a webpage for the package.
+```Pyramid()``` draws a population pyramid. Tons of optional arguments. Other related functions may be added. Soon to undergo overhaul. [Here](http://timriffe.github.io/Pyramid/)'s a webpage for the package.
 
 ### Installation
 To download and install the development version of Pyramid:
