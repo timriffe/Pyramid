@@ -15,7 +15,7 @@ Download the [zip ball](https://github.com/timriffe/Pyramid/master) or
 ```r
 # install.packages("devtools")
 library(devtools)
-install_github("Pyramid","timriffe",subdir="Pyramid")
+install_github("timriffe/Pyramid",subdir="Pyramid")
 ```
 
 **Note**: Windows users need [Rtools](http://cran.r-project.org/bin/windows/Rtools/) to install from github as shown above. Get the most recent version of [R for Windows](http://cran.r-project.org/bin/windows/base/) and download and install the version of Rtools that corresponds to it.
